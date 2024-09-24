@@ -1,0 +1,9 @@
+SELECT order_id,
+       product_id,
+       price
+FROM   (SELECT order_id,
+               product_ids,
+               unnest(product_ids) as product_id
+        FROM   orders) as t
+    LEFT JOIN products using(product_id)
+ORDER BY order_id, product_id limit 1000
